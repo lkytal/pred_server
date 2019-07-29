@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="zh_cn">
+<head>
+	<title>Predfull</title>
+	<%- include('meta') %>
+</head>
+<body>
+	<%- include('titlebar') %>
+
+	<div id="blue">
+		<div class="container">
+		<%# headerSpace %>
+			<%# <div class="row centered block">
+				<div class="col-xs-10 col-xs-offset-1">
+					<h6>WE WORK HARD TO ACHIEVE EXCELLENCE</h6>
+				</div>
+			</div> %>
+
+			<div class="center">
+				<%# <img src="/img/Retina-Ready.png" class="xshide big-retina-illustration"> %>
+
+				<h1 class="demo-logo">
+					<small>PredFull: Full-Spectrum Prediction of Peptides Tandem Mass Spectra</small>
+				</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div id="tolltip" class="row">
+
+			<div class="col-md-3 col-xs-12">
+          		<h6 class="demo-panel-title">Fragment Type</h6>
+			</div>
+
+			<div class="col-md-3 col-xs-12">
+          		<h6 class="demo-panel-title">Charge</h6>
+			</div>
+
+			<div class="col-md-6 col-xs-12 col-xs-offset-lt">
+          		<h6 class="demo-panel-title">Peptide</h6>
+			</div>
+
+		</div>
+
+		<div id="main" class="row centered">
+
+			<div class="col-md-3 col-xs-12">
+				<select id="type" class="form-control select select-primary select-block mbl blockdis">
+					<option value="3">HCD</option>
+					<option value="2">ETD</option>
+				</select>
+			</div>
+
+			<div class="col-md-3 col-xs-12">
+				<select id="charge" class="form-control select select-primary select-block mbl blockdis">
+					<option value="1">1+</option>
+					<option value="2" selected>2+</option>
+					<option value="3">3+</option>
+					<option value="4">4+</option>
+				</select>
+			</div>
+
+			<div class="input-group col-md-6 col-xs-12 col-xs-offset-lt">
+				<input id="peptide" placeholder='PEPTIDE...' type="text" class="form-control" />
+				<span class="input-group-btn">
+					<button id="search" type="button" class="btn btn-primary">
+						<span class="glyphicon glyphicon-search"></span>
+						Predict
+					</button>
+				</span>
+			</div>
+
+		</div>
+
+		<div id="loadding" class="hidden alert alert-dismissable alert-warning">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<h4>Predicting...</h4>
+			<p>Refresh if loading too long.</p>
+		</div>
+
+		<div id="loadErr" class="hidden alert alert-dismissable alert-danger fade in">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<h4>Predict Error</h4>
+			<p>Cannot load prediction, please refresh this page.</p>
+		</div>
+
+		<div id="info" class="hidden alert alert-dismissable alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<h4>Predict Completed</h4>
+			<p id="rstnum">Note that peaks are not showed in original intensities</p>
+		</div>
+
+		<div id="invalid" class="hidden alert alert-dismissable alert-danger fade in">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<h4>Invalid Input</h4>
+			<p>Peptide longer than 22 or contains invalid amino-acids.</p>
+		</div>
+
+		<div id='plot' class='row hidden'>
+			<div id='rst'> </div>
+		</div>
+
+		<div id='mgf' class='container-fluid hidden'>
+			<h6>MGF Format</h6>
+			<pre id='mgf_box' style='max-height:300px;'></pre>
+		</div>
+
+	</div>
+
+	<br>
+	<br>
+
+	<%- include('foot') %>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.49.0/plotly-basic.min.js"></script>
+
+	<%# <!-- Load c3.css -->
+	<link href="/css/c3.min.css" rel="stylesheet">
+
+	<!-- Load d3.js and c3.js -->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="/js/c3.min.js"></script> %>
+
+	<script src="/js/predict.js"></script>
+</body>
+</html>
