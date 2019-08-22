@@ -11,6 +11,21 @@ body {
 @ui-blue:#3498DB;
 @ui-orange:#f85c37;
 
+.ghost-btn {
+	text-shadow: 1px 1px 3px black;
+	border: 2px solid #fefefe;
+	background-color: rgba(0,0,0,0);
+	color: #fefefe;
+}
+
+.ghost-btn :hover {
+	text-shadow: 0px 0px 5px white;
+}
+
+img {
+	max-width: 100%;
+}
+
 .colorful {
 	color: @ui-blue;
 }
@@ -74,6 +89,10 @@ body {
 	color: white;
 }
 
+.light {
+	color: #fefefe;
+}
+
 .container-fluid {
 	width: 90% !important;
 	padding-top: 3em;
@@ -124,7 +143,7 @@ h4,
 h5,
 h6 {
 	font-weight: 300;
-	color: #333;
+	color: #444;
 }
 
 p {
@@ -151,7 +170,7 @@ p {
 /* Links */
 
 a {
-	color: #f85c37;
+	// color: #f85c37;
 	-ms-word-wrap: break-word;
 	word-wrap: break-word;
 	-webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
@@ -227,7 +246,7 @@ hr {
    ========================================================================== */
 
 #headerwrap {
-	background: url(../img/city-restaurant-table-pavement-1600.jpg) no-repeat center top;
+	background: url(../img/bg1.jpg) no-repeat center top;
 	margin-top: -10px;
 	padding-top: 1.25em;
 	font-size: 1em;
@@ -304,6 +323,7 @@ hr {
 
 .linkText {
 	color: black;
+	padding-left: 15px;
 }
 
 .linkText h4 {

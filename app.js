@@ -1,5 +1,4 @@
 let fs = require('fs');
-let async = require('async');
 let markdown = require('markdown').markdown;
 let express = require("express");
 let path = require("path");
@@ -12,7 +11,7 @@ let ejs = require('ejs').__express;
 let helmet = require('helmet');
 let request = require('request');
 
-let utils = require('./routes/utils')
+let utils = require('./routes/utils');
 
 app = express();
 
@@ -28,7 +27,7 @@ app.engine('md', function(path, options, callback) {
 		if (err) {
 			return callback(err);
 		}
-		console.log(options);
+		// console.log(options);
 		return callback(null, markdown.toHTML(str));
 	});
 });
@@ -45,11 +44,23 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 
-app.use(express["static"](path.join(__dirname, "assets")));
+app.use(express.static(path.join(__dirname, "assets"), { maxAge: 60 * 60 * 1000 }));
 
 app.get("/", function(req, res) {
-	res.render('index', {
-		url: "index"
+	fs.readFile('views/index.md', 'utf8', (err, str) => {
+		if (err) console.log(err);
+
+		return res.render('index', {
+			body: markdown.toHTML(str)
+		});
+	});
+});
+
+app.get('/index.md', function(req, res) {
+	fs.readFile('views/index.md', 'utf8', (err, str) => {
+		if (err) console.log(err);
+
+		return res.send(markdown.toHTML(str));
 	});
 });
 
@@ -75,8 +86,6 @@ app.get('/json/:type/:charge/:peptide', function(req, res) {
 		res.status(404);
 		return res.send([-1]);
 	}
-
-	// console.log(matrix);
 
 	request({
 		url: 'http://localhost:9000/v1/models/lx:predict',
