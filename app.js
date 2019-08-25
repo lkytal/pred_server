@@ -13,9 +13,9 @@ let request = require('request');
 
 let utils = require('./routes/utils');
 
-app = express();
+let app = express();
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 80);
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 app.engine('ejs', ejs);
@@ -46,9 +46,12 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "assets"), { maxAge: 60 * 60 * 1000 }));
 
-app.get("/", function(req, res) {
+app.get("/", function(req, res, next) {
 	fs.readFile('views/index.md', 'utf8', (err, str) => {
-		if (err) console.log(err);
+		if (err) {
+			console.log(err);
+			return next();
+		}
 
 		return res.render('index', {
 			body: markdown.toHTML(str)
@@ -56,9 +59,12 @@ app.get("/", function(req, res) {
 	});
 });
 
-app.get('/index.md', function(req, res) {
+app.get('/index.md', function(req, res, next) {
 	fs.readFile('views/index.md', 'utf8', (err, str) => {
-		if (err) console.log(err);
+		if (err) {
+			console.log(err);
+			return next();
+		}
 
 		return res.send(markdown.toHTML(str));
 	});
@@ -111,7 +117,7 @@ app.post('/predict', function(req, res) {
 });
 
 app.get(["/:url.html", "/:url"], function(req, res, next) {
-	fs.stat("views/" + req.params.url + ".ejs", function(err, stat) {
+	fs.access("views/" + req.params.url + ".ejs", fs.constants.R_OK, function(err) {
 		if (err === null) {
 			return res.render(req.params.url, {
 				url: req.params.url,
@@ -125,7 +131,7 @@ app.get(["/:url.html", "/:url"], function(req, res, next) {
 });
 
 app.get(["/:url.html", "/:url"], function(req, res, next) {
-	fs.stat("views/" + req.params.url + ".ejs", function(err, stat) {
+	fs.access("views/" + req.params.url + ".ejs", fs.constants.R_OK, function(err) {
 		if (err === null) {
 			return res.render(req.params.url, {
 				url: req.params.url,

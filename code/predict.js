@@ -25,6 +25,8 @@ function mgf(type, charge, pep, mass, mzs, its) {
 	return head + 'END IONS';
 }
 
+let types = { 2: 'ETD', 3: 'HCD' };
+
 function show_result(data, type, charge, peptide) {
 	let [mass, mzs, its] = data;
 
@@ -41,7 +43,7 @@ function show_result(data, type, charge, peptide) {
 	],
 	{
 		title: {
-			text: `Prediction of ${peptide}, charge ${charge}+, ${type}`
+			text: `Prediction of ${peptide}, charge ${charge}+, ${types[type]}`
 		},
 		xaxis: {
 			range: [130, mzs[mzs.length - 1] + 50],
