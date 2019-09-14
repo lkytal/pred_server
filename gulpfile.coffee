@@ -109,7 +109,7 @@ gulp.task 'selfWatch', ->
 		coffeeToJs './gulpfile.coffee'
 
 		setTimeout ->
-			require('child_process').spawn 'cmd.exe', ['-c gulp'], {stdio: 'inherit'}
+			require('child_process').spawn 'cmd.exe', ['-c gulp'], { stdio: 'inherit' }
 			process.exit(0)
 		, 600
 
@@ -128,10 +128,10 @@ gulp.task 'web', ['nodemon'], ->
 	browserSync = require('browser-sync').create()
 
 	browserSync.init null, {
-		proxy : "http://localhost:5000"
-		files : ["views/*.*", "assets/**/*.*"]
-		browser : "ff"
-		port : 7000
+		proxy: "http://localhost:5000"
+		files: ["views/*.*", "assets/**/*.*"]
+		browser: "ff"
+		port: 7000
 	}
 
 gulp.task 'nodemon', ['coffee', 'less'], (cb) ->

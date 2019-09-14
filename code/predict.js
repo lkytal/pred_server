@@ -19,7 +19,7 @@ function mgf(type, charge, pep, mass, mzs, its) {
 	let head = `BEGIN IONS\nTitle=${pep}\nCHARGE=${charge}+\nPEPMASS=${mass}\n`;
 
 	for (let i = 0; i < mzs.length; i++) {
-		head += mzs[i].toFixed(2) + '\t' + its[i].toFixed(5) + '\n';
+		head += mzs[i].toFixed(2) + '\t' + Math.pow(its[i], 4).toFixed(5) + '\n';
 	}
 
 	return head + 'END IONS';
@@ -34,6 +34,10 @@ function show_result(data, type, charge, peptide) {
 
 	$('#rst').html('<div id="sp"></div>');
 
+	for (let i = 0; i < its.length; ++i) {
+		its[i] = Math.pow(its[i], 2);
+	}
+
 	Plotly.newPlot('sp', [
 		{
 			x: mzs,
@@ -43,7 +47,7 @@ function show_result(data, type, charge, peptide) {
 	],
 	{
 		title: {
-			text: `Prediction of ${peptide}, charge ${charge}+, ${types[type]}`
+			text: `Prediction of ${peptide}, charge ${charge}+, ${types[type]}, intensities showed by square root!!!`
 		},
 		xaxis: {
 			range: [130, mzs[mzs.length - 1] + 50],
@@ -57,14 +61,14 @@ function get(type, charge, peptide) {
 
 	jQuery.getJSON(`/json/${type}/${charge}/${peptide}?id=${(new Date()).valueOf()}`, function (data) {
 		$('#loadding').slideUp(400);
+		$('#loadErr').slideUp(400);
 		$('#info').slideDown(400);
 		$('#plot').slideDown(400);
 		$('#mgf').slideDown(400);
 
-		setTimeout(function () {
-			$('#info').slideUp(400);
-		}, 1500);
-
+		// setTimeout(function () {
+		// 	$('#info').slideUp(400);
+		// }, 1500);
 
 		$('body, html').animate({
 			scrollTop: $('#info')[0].offsetTop - 300
