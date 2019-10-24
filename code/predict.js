@@ -71,7 +71,7 @@ function get(type, charge, peptide) {
 		// }, 1500);
 
 		$('body, html').animate({
-			scrollTop: $('#info')[0].offsetTop - 300
+			scrollTop: $('#info')[0].offsetTop - 200
 		}, 1000);
 
 		show_result(data, type, charge, peptide);
