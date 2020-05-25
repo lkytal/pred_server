@@ -94,7 +94,7 @@ app.get('/json/:type/:charge/:peptide', function(req, res) {
 	}
 
 	request({
-		url: 'http://localhost:9000/v1/models/lx:predict',
+		url: 'http://localhost:8501/v1/models/pred_model:predict',
 		method: "POST",
 		json: true,
 		headers: { "content-type": "application/json" },

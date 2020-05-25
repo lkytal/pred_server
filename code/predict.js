@@ -50,7 +50,7 @@ function show_result(data, type, charge, peptide) {
 			text: `Prediction of ${peptide}, charge ${charge}+, ${types[type]}, intensities showed by square root!!!`
 		},
 		xaxis: {
-			range: [130, mzs[mzs.length - 1] + 50],
+			range: [0, mzs[mzs.length - 1] + 50],
 			title: { text: 'M/z' }
 		}
 	});
@@ -91,7 +91,7 @@ let charMap = {
 function invalid(pep) {
 	pep = pep.toUpperCase();
 
-	if (pep.length > 22) return true;
+	if (pep.length > 30) return true;
 
 	for (let c of pep) {
 		if (!charMap.hasOwnProperty(c)) return true;
