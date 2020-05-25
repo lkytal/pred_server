@@ -1,5 +1,5 @@
 let fs = require('fs');
-let markdown = require('markdown').markdown;
+let markdown = require('markdown-it')();
 let express = require("express");
 let path = require("path");
 let favicon = require('serve-favicon');
@@ -15,7 +15,7 @@ let utils = require('./routes/utils');
 
 let app = express();
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 80);
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 app.engine('ejs', ejs);
@@ -54,7 +54,7 @@ app.get("/", function(req, res, next) {
 		}
 
 		return res.render('index', {
-			body: markdown.toHTML(str)
+			body: markdown.render(str)
 		});
 	});
 });
@@ -66,7 +66,7 @@ app.get('/index.md', function(req, res, next) {
 			return next();
 		}
 
-		return res.send(markdown.toHTML(str));
+		return res.send(markdown.render(str));
 	});
 });
 
