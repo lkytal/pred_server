@@ -93,14 +93,14 @@ function embed(type, charge, pep, nce='25') {
 		em[i][0] = 1; // padding first, meta column should not be affected
 
 	let meta = em[em.length - 1];
-	meta[0] = fastmass(pep, ion_type = 'M', charge = 1) / mass_scale; // pos 0, overwrtie padding
+	meta[0] = fastmass(pep, ion_type = 'M', charge = 1) / max_mz; // pos 0, overwrtie padding
 	meta[charge] = 1; // pos 1 - 4
 	meta[5 + type] = 1; // pos 5 - 8
 	meta[-1] = nce / 100.0
 
 	for (let i = 0; i < pep.length; i++) {
 		em[i][charMap[pep[i]]] = 1; // 1 - 20
-		em[i][x_dim - 1] = mono[pep[i]] / mass_scale;
+		em[i][x_dim - 1] = mono[pep[i]] / max_mz;
 	}
 
 	return em;
