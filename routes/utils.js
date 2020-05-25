@@ -26,7 +26,7 @@ let x_dim = 23
 let precision = 0.1
 let low = 0
 let dim = 20000
-let upper = math.floor(low + dim * precision)
+let upper = Math.floor(low + dim * precision)
 let mz_scale = 3000.0
 let max_mz = dim * precision + low
 
