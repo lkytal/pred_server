@@ -19,7 +19,7 @@ function mgf(type, charge, pep, mass, mzs, its) {
 	let head = `BEGIN IONS\nTitle=${pep}\nCHARGE=${charge}+\nPEPMASS=${mass}\n`;
 
 	for (let i = 0; i < mzs.length; i++) {
-		head += mzs[i].toFixed(2) + '\t' + Math.pow(its[i], 4).toFixed(5) + '\n';
+		head += mzs[i].toFixed(2) + '\t' + Math.pow(its[i], 2).toFixed(5) + '\n';
 	}
 
 	return head + 'END IONS';
@@ -34,9 +34,9 @@ function show_result(data, type, charge, peptide) {
 
 	$('#rst').html('<div id="sp"></div>');
 
-	for (let i = 0; i < its.length; ++i) {
-		its[i] = Math.pow(its[i], 2);
-	}
+	// for (let i = 0; i < its.length; ++i) {
+	// 	its[i] = Math.pow(its[i], 2);
+	// }
 
 	Plotly.newPlot('sp', [
 		{
@@ -83,10 +83,10 @@ function get(type, charge, peptide) {
 }
 
 let charMap = {
-	"A": 1, "R": 2, "N": 3, "D": 3, "C": 5, "E": 5, "Q": 7,
-	"G": 8, "H": 9, "I": 10, "L": 11, "K": 12, "M": 13, "F": 14,
-	"P": 15, "S": 16, "T": 17, "W": 18, "Y": 19, "V": 20
-};
+	'@': 0, '[': 21, 'A': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7,
+	'I': 8, 'K': 9, 'L': 10, 'M': 11, 'N': 12, 'P': 13, 'Q': 14, 'R': 15,
+	'S': 16, 'T': 17, 'V': 18, 'W': 19, 'Y': 20
+}
 
 function invalid(pep) {
 	pep = pep.toUpperCase();
